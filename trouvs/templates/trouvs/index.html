@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+    <div class='row'>
+        <div class='col'>
+            <div class='card mb-4'>
+                <h5 class='card-header'>Une nouvelle idée à partager aujourd'hui ? Postez-là ici !</h5>
+                <div class='card-body'>
+                    <form action='/trouvs/creation' method='post'>
+                        <div class='form-floating mb-2'>
+                            <input type='text' class='form-control' id='base' name='base'>
+                            <label for='base'>Qu'allez-vous trouver aujourd'hui ?</label>
+                        </div>
+                        <input type='submit' class='btn btn-primary' value='Publier'>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col lg-8 mb-4'>
+            {% for trouv in trouvs %}
+                <div class='card mb-4'>
+                    <div class='card-body'>
+                        <div class='row row-cols-4'>
+                            <div class='col col-md-1 order-0 pt-1'>
+                                <ul class='list-unstyled users-list m-0 avatar-group d-flex align-items-center'>
+                                    <a href='/compte/{{ trouv.utilisateur.id }}'>
+                                        <li data-bs-toggle='tooltip'
+                                            data-popup='tooltip-custom'
+                                            data-bs-placement='top'
+                                            class='avatar pull-up'
+                                            title='{{ trouv.utilisateur.user.username }}' data-bs-original-title=''>
+                                            <img src='{{ trouv.utilisateur.photo_de_profil }}' alt='Avatar'
+                                                 class='rounded-circle'>
+                                        </li>
+                                    </a>
+                                </ul>
+                            </div>
+                            <div class='col col-md-8 order-1'>
+                                <h5 class='text-primary mb-0'><a href='/trouvs/{{ trouv.id }}'>{{ trouv.titre }}</a>
+                                </h5>
+                                <p class='text-secondary'>
+                                    <em>
+                                        Proposé par <a href='/compte/{{ trouv.utilisateur.id }}'>
+                                        {{ trouv.utilisateur.user.username }}</a> pour le produit
+                                        <a href='/produit/{{ trouv.produit.id }}'>{{ trouv.produit.nom }}</a><br>
+                                        Le {{ trouv.date_creation }}
+                                    </em>
+                                </p>
+                            </div>
+                            {% comment %}
+                            <div class='col col-md-2 order-2 text-center align-bottom pt-1'>
+                                <div class='btn-group mb-3' role='group' aria-label='Basic example'>
+                                    <a href='?page=accueil&ext=php&id=" . $idee[' id'] . "&vote=";
+                                    if ($valeur == 1) echo '-1'; else echo '1';
+                                    echo "#" . $idee['id'] . "'>
+                                    <button
+                                            id='pour'
+                                            type='button'
+                                            class='btn btn-outline-secondary'
+                                    ";
+                                    if ($votes['vote_createur'] == 1) {
+                                    echo " disabled";
+                                    }
+                                    echo "> ▲ " . $votes['nb_pour'] . "
+                                    </button>
+                                    </a>
+                                    <a href='?page=accueil&ext=php&id=" . $idee[' id'] . "&vote=";
+                                    if ($valeur == 0) echo '-1'; else echo '0';
+                                    echo "#" . $idee['id'] . "'>
+                                    <button
+                                            id='contre'
+                                            type='button'
+                                            class='btn btn-outline-secondary'
+                                    ";
+                                    if (!is_null($votes['vote_createur']) && $votes['vote_createur'] == 0) {
+                                    echo " disabled";
+                                    }
+                                    echo "> ▼ " . $votes['nb_contre'] . "
+                                    </button>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class='col col-md-1 order-3'>
+                                <div class='dropdown'>
+                                    <button type='button' class='btn p-0 dropdown-toggle hide-arrow'
+                                            data-bs-toggle='dropdown'>
+                                        <i class='bx bx-dots-vertical-rounded'></i>
+                                    </button>
+                                    <div class='dropdown-menu'>
+                                        <a class='dropdown-item' href='?page=idee&amp;ext=php&amp;id=".$idee[' id']."#modif'><i
+                                            class='bx bx-edit-alt me-1'></i>Editer</a>
+                                        <a class='dropdown-item' href='?page=accueil&amp;ext=php&amp;id=".$idee[' id']."&brouillon=1#".$idee['id']."'><i
+                                            class='bx bx-trash me-1'></i>Retourner en brouillon</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endcomment %}
+                        </div>
+                        <p>{{ trouv.description }}</p>
+                        {% if trouv.fichierstrouv_set %}
+                            <p class='mb-0'><em>Fichiers liés à l'idée :</em></p>";
+                            <ul>
+                            {% for fichier in trouv.fichierstrouv_set %}
+                                <li>
+                                    <a href='fichiers/{{ fichier.fichier.name }}' download>{{ fichier.fichier.name }}</a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

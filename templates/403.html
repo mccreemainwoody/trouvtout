@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Erreur 403</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/">Accueil</a></li>
+                            <li class="breadcrumb-item active">Erreur 403</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="error-page">
+                <h2 class="headline text-warning"> 403</h2>
+
+                <div class="error-content">
+                    <h3><i class="fas fa-exclamation-triangle text-warning"></i> Bip ! Accès interdit !</h3>
+
+                    <p>
+                        Hé, qu'est-ce que vous faites ici ? Cet espace est interdit aux individus non autorisés !
+                        Effectivement, vous n'avez pas le droit d'accéder à cette page.
+                        <br>
+                        Non, vous n'irez pas en prison pour avoir tenté d'enfreindre les règles, mais ce que
+                        vous pouvez faire à la place est de se rendre à l'<a href="/">écran d'accueil</a>.
+                    </p>
+                </div>
+                <!-- /.error-content -->
+            </div>
+            <!-- /.error-page -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock %}
