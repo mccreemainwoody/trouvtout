@@ -1,0 +1,12 @@
+{% block options_trouv %}
+    {% if est_page_perso or est_proprietaire or trouv.utilisateur == session_utilisateur %}
+        <div class="row">
+            <a class='dropdown-item col-5 order-0 ' href='/trouvs/{{ trouv.id }}'>
+                <i class='icon fas fa-magnifying-glass'></i>
+            </a>
+            <a class='dropdown-item col-5 order-1 bouton-suppression' href='#'>
+                <i class='icon fas fa-trash'></i>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% block stock_fichiers %}
+    {% if trouv.fichiertrouv_set.exists %}
+        <p class='mt-3'><em>Fichiers liés à l'idée :</em></p>
+        <ul>
+            {% for fichier in trouv.fichiertrouv_set.all %}
+                <li>
+                    <a href='{{ fichier.fichier.url }}' download>{{ fichier.fichier.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

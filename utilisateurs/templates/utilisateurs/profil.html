@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load avatar_tags %}
+
+{% block body %}
+    <div class="row">
+    <div class="col">
+    <div class="card">
+        <div class="card-header">
+            <h3>Compte de {{ utilisateur.user.username }}</h3>
+        </div>
+        <div class="card-body">
+            <div class="row ml-2">
+                <div class="col col-1 order-0">
+                    {% avatar utilisateur.user 80 80 class='d-block rounded' id='uploadedAvatar' alt='user-avatar' %}
+                </div>
+                <div class="col col-9 order-1">
+                    <p>
+                        <strong>Login :</strong> {{ utilisateur.user.username }}<br>
+                        <strong>Email : </strong> {{ utilisateur.user.email }}<br>
+                        <strong>Date de création : </strong>{{ utilisateur.date_creation|date:"d M, Y" }}<br>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

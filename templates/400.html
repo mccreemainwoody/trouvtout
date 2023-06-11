@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="row mb-2"></div>
+
+    <div class="error-page">
+        <h2 class="headline text-warning">400</h2>
+
+        <div class="error-content">
+            <h3>
+                <i class="fas fa-exclamation-triangle text-danger"></i> Maman, je n'arrive pas à
+                lire la requête du client... :/
+            </h3>
+
+            <p>
+                Un problème très bizarre s'est passé avec votre requête, et le serveur n'a pas accepté
+                cette erreur de manière très conviviale. On dirait que vous allez devoir renvoyer
+                votre requête.
+                <br>
+                Ca ne doit pas être grand-chose, nous en sommes sûrs. Retournez à la page précédente
+                et recommencer votre manœuvre !
+                <br>
+                Vous vous êtes perdus ? Rappelez-vous que vous pouvez <a href="/">revenir à l'accueil</a> à tout moment !
+            </p>
+        </div>
+    </div>
+{% endblock %}

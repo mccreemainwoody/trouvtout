@@ -1,0 +1,21 @@
+{% block pouces %}
+    <div class='text-center align-bottom pt-1'>
+        <div class='row row-12 btn-group mb-3' role='group'>
+            <button type='button' class='col col-4 btn btn-block {% if trouv.id in deja_aime %}btn-success{% else %}
+                        btn-secondary{% endif %} pouce' value='1'>
+                <i class="icon fas fa-thumbs-up"></i>
+            </button>
+            <button type='button' class='col col-4 btn btn-outline-secondary affichage'>
+                {{ trouv.no_votes }}
+            </button>
+            <button type='button'
+                    class='col col-4 btn btn-block {% if trouv.id in deja_pas_aime %}btn-danger{% else %}btn-secondary{% endif %} pouce'
+                    value='-1'>
+                <i class="icon fas fa-thumbs-down"></i>
+            </button>
+        </div>
+        <div class="texte-erreur bg-danger d-none animation__wobble">
+            <p></p>
+        </div>
+    </div>
+{% endblock %}

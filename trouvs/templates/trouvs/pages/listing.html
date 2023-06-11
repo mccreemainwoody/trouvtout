@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class='row mb-2'>
+        <div class='card col order-0'>
+            <div class="card-header">
+                <h2 class='card-title text-primary'>
+                    {% if perso %}
+                        Vos trouvs
+                    {% else %}
+                        Des trouvs à gogo !
+                    {% endif %}
+                </h2>
+            </div>
+            <div class='card-body row'>
+                <div class='col-9'>
+                    <p>
+                        {% if est_page_perso %}
+                            Dans cette page, vous trouverez les trouvs que vous avez postés depuis la création de votre compte.<br>
+                            Explorez-les, observez ce qu'en pensent les autres utilisateurs, et découvrez si vous avez réussi à convaincre le monde !
+                        {% else %}
+                            Dans cette page, vous trouverez les trouvs postés par les autres utilisateurs.
+                        {% endif %}
+                    </p>
+                </div>
+                <div class='col-3 text-right'>
+                    <img src='{% static 'base/img/man-with-laptop-light.png' %}' height='140'
+                         alt='View Badge User' data-app-dark-img='illustrations/man-with-laptop-dark.png'
+                         data-app-light-img='illustrations/man-with-laptop-light.png'>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class='card'>
+                <div class='d-flex align-items-end row'>
+                    <div class="col">
+                        <div class='card-header d-flex align-items-center justify-content-between'>
+                            <h3 class='card-title text-primary'>
+                                {% if perso %}
+                                    Mes trouvs :
+                                {% else %}
+                                    Trouvs :
+                                {% endif %}
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            {% if not trouvs %}
+                                <p class="ml-2">Aucun trouv... pour l'instant !</p>
+                            {% else %}
+                                <div class='table-responsive text-nowrap'>
+                                <table class='table'>
+                                <thead>
+                                <tr>
+                                    <th>Titre</th>
+                                    <th>Description</th>
+                                    <th>Date de création</th>
+                                    <th>Produit</th>
+                                    {% if not est_page_perso %}
+                                        <th>Créateur</th>
+                                    {% else %}
+                                        <th>Actions</th>
+                                    {% endif %}
+                                </tr>
+                                </thead>
+                                <tbody class='table-border-bottom-0'>
+                                {% for trouv in trouvs %}
+                                    {% if not trouv.date_suppression %}
+                                        <tr>
+                                            <td>
+                                                <i class='fab fa-angular fa-lg text-danger me-3'></i>
+                                                <a href='{{ trouv.id }}'> <strong>{{ trouv.titre }}</strong> </a>
+                                            </td>
+                                            <td>
+                                                {% if trouv.description %}
+                                                    {{ trouv.description|slice:"0:130" }}...
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {{ trouv.date_creation }}
+                                            </td>
+                                            <td>
+                                                <a href='/produits/{{ trouv.produit.id }}'>{{ trouv.produit.nom }}</a>
+                                            </td>
+                                            {% if not est_page_perso %}
+                                                <td>
+                                                    <a href='/compte/{{ trouv.id }}'>{{ trouv.utilisateur.user.username }}</a>
+                                                </td>
+                                            {% else %}
+                                                <td>
+                                                    {% include 'trouvs/composants/blocs/options-trouv.html' %}
+                                                </td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js_local %}
+    <script src="{% static 'trouvs/js/confirmation_suppression.js' %}"></script>
+{% endblock %}

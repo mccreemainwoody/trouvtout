@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class='row order-0'>
+        <div class='card col'>
+            <div class="card-header">
+                <h2 class='card-title text-primary'>Fiche idée !</h2>
+            </div>
+            <div class='card-body row'>
+                <p class='col-9'>Ici se trouve la fiche d'informations de l'idée "<em>{{ trouv.titre }}</em>".<br>
+                    Dans le premier onglet, vous pouvez lire l'idée. Dans le second, vous pouvez consulter
+                    les informations de l'idée, comme le nom du créateur ou sa date de création.<br>
+                    N'oubliez pas de voter positivement (ou négativement !) pour cette idée une fois avoir
+                    fini de le lire !</p>
+                <div class='col-3 text-right'>
+                    <img src='{% static 'base/img/girl-doing-yoga-light.png' %}' height='150'
+                         alt='View Badge User' data-app-dark-img='illustrations/man-with-laptop-dark.png'
+                         data-app-light-img='illustrations/man-with-laptop-light.png'>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class='row order-1 mb-2'>
+        <div class='col col-12'>
+            {% include 'trouvs/composants/modeles/trouv.html' %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block js_local %}
+    <script src="{% static 'trouvs/js/pouce.js' %}"></script>
+    <script src="{% static 'trouvs/js/confirmation_suppression.js' %}"></script>
+    <script src="{% static 'trouvs/js/confirmation_modification.js' %}"></script>
+    <script src="{% static 'trouvs/js/edition-fichier-trouv.js' %}"></script>
+{% endblock %}

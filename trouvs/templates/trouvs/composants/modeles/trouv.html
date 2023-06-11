@@ -1,0 +1,94 @@
+{% load avatar_tags %}
+{% block trouv %}
+    {% if trouv.date_supression == null %}
+        <div class='col order-1 trouv grand-trouv' aria-id-trouv='{{ trouv.id }}'>
+            <div class='row'>
+                <div class='col col-9 order-0'>
+                    <h4 class='text-primary'>{{ trouv.titre }}</h4>
+                    <h5><em>Produit : <a href='/produits/{{ 1 }}'>{{ trouv.produit.nom }}</a></em></h5>
+                </div>
+                <div class='col col-2 order-1'>
+                    {% include 'trouvs/composants/blocs/pouces.html' %}
+                </div>
+                <div class='col col-1 order-2'>
+                    {% include 'trouvs/composants/blocs/options-trouv.html' %}
+                </div>
+            </div>
+
+            <div class='nav-align-top'>
+                <ul class='nav nav-tabs mb-3' role='tablist'>
+                    <li class='nav-item'>
+                        <button type='button' class='nav-link active' role='tab' data-bs-toggle='tab'
+                                data-bs-target='#navs-top-home' aria-controls='navs-top-home' aria-selected='true'>
+                            Général
+                        </button>
+                    </li>
+                    <li class='nav-item'>
+                        <button type='button' class='nav-link' role='tab' data-bs-toggle='tab'
+                                data-bs-target='#navs-top-profile' aria-controls='navs-top-profile'
+                                aria-selected='false'>
+                            Informations
+                        </button>
+                    </li>
+                    {% if form_edition %}
+                        <li class="nav-item">
+                            <button type='button' class='nav-link' role='tab' data-bs-toggle='tab'
+                                    data-bs-target='#navs-top-edit' aria-controls='navs-top-edit'
+                                    aria-selected='false'>
+                                Modifier le trouv
+                            </button>
+                        </li>
+                    {% endif %}
+                </ul>
+                <div class='tab-content'>
+                    <div class='tab-pane fade show active' id='navs-top-home' role='tabpanel'>
+                        <!-- Contenu -->
+                        {{ trouv.description }}
+                        {% include 'trouvs/composants/blocs/stock_fichiers.html' %}
+                    </div>
+                    <div class='tab-pane fade' id='navs-top-profile' role='tabpanel'>
+                        <h5 class='mb-0'>Créateur :</h5>
+                        <a href='/compte/{{ trouv.utilisateur.id }}'>{{ trouv.utilisateur.user.username }}</a>
+                        <h5 class='mb-0 mt-3'>Date de publication de l'idée :</h5>
+                        <p>{{ trouv.date_creation }}</p>
+                        <h5 class='mb-0'>Date de dernière modification :</h5>
+                        <p>
+                            {% if trouv.date_modification %}
+                                {{ trouv.date_modification }}
+                            {% else %}
+                                <em>Jamais modifé !</em>
+                            {% endif %}
+                        </p>
+                    </div>
+                    {% if form_edition %}
+                        <div class='tab-pane fade' id='navs-top-edit' role='tabpanel'>
+                            <div class='alert alert-success'>
+                                <p></p>
+                            </div>
+                            <form method="post" class="tableau-edition" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="hidden" name="id" value="{{ trouv.id }}">
+                                {{ form_edition.as_p }}
+                                {% if trouv.fichiertrouv_set.exists %}
+                                    <p>Fichiers existants : </p>
+                                    <ul class="liste-fichiers-trouv">
+                                        {% for fichier in trouv.fichiertrouv_set.all %}
+                                            <li aria-id-fichier="{{ fichier.id }}">
+                                                <a href="#" class="bouton-suppression-fichier">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </a>
+                                                <a href="{{ fichier.fichier.url }} download">{{ fichier.fichier.name }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                {{ form_fichier.as_p }}
+                                <input type='submit' class='btn btn-primary bouton-edition' value='Publier !'>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

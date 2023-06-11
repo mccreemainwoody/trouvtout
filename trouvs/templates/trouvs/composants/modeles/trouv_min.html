@@ -1,0 +1,36 @@
+{% load avatar_tags %}
+{% block trouv_min %}
+    {% if trouv.date_suppression == null %}
+        <div class='card mb-4 trouv mini-trouv' aria-id-trouv='{{ trouv.id }}'>
+            <div class='card-body'>
+                <div class='row row-cols-4'>
+                    <div class='col col-1 order-0 pt-1'>
+                        <a href='/compte/{{ trouv.utilisateur.id }}'>
+                            {% avatar trouv.utilisateur.user 80 80 class='d-block rounded' id='uploadedAvatar' alt='user-avatar' %}
+                        </a>
+                    </div>
+                    <div class='col col-8 order-1'>
+                        <h5 class='text-primary mb-0'><a href='/trouvs/{{ trouv.id }}'>{{ trouv.titre }}</a>
+                        </h5>
+                        <p class='text-secondary'>
+                            <em>
+                                Proposé par <a href='/compte/{{ trouv.utilisateur.id }}'>
+                                {{ trouv.utilisateur.user.username }}</a> pour le produit
+                                <a href='/produits/{{ trouv.produit.id }}'>{{ trouv.produit.nom }}</a><br>
+                                Le {{ trouv.date_creation }}
+                            </em>
+                        </p>
+                    </div>
+                    <div class='col col-2 order-2 align-items-end'>
+                        {% include 'trouvs/composants/blocs/pouces.html' %}
+                    </div>
+                    <div class='col col-1 order-3'>
+                        {% include 'trouvs/composants/blocs/options-trouv.html' %}
+                    </div>
+                </div>
+                <p>{{ trouv.description }}</p>
+                {% include 'trouvs/composants/blocs/stock_fichiers.html' %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

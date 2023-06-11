@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load avatar_tags %}
+
+{% block body %}
+    <div class='row'>
+        <div class='col'>
+            <div class='card mb-4'>
+                <h5 class='card-header'>Une nouvelle idée à partager aujourd'hui ? Postez-là ici !</h5>
+                <div class='card-body'>
+                    <form action='/trouvs/creation' method='post'>
+                        {% csrf_token %}
+                        <div class='form-floating mb-2'>
+                            {{ form_rapide.as_p }}
+                        </div>
+                        <input type='submit' class='btn btn-primary' value='Publier'>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col lg-8 mb-4'>
+            {% for trouv in trouvs %}
+                {% include 'trouvs/composants/modeles/trouv_min.html' %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block js_local %}
+    <script src="{% static 'trouvs/js/pouce.js' %}"></script>
+    <script src="{% static 'trouvs/js/confirmation_suppression.js' %}"></script>
+{% endblock %}
